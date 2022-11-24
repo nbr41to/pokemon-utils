@@ -111,7 +111,7 @@ const Home = () => {
                 'w-20 rounded-md px-1 py-3 text-sm font-bold text-white',
                 types[el].color,
                 defenseSelects.includes(el) &&
-                  'scale-90 opacity-70 outline outline-rose-600'
+                  'scale-90 border-red-600 opacity-60 brightness-75'
               )}
               onClick={() => {
                 if (defenseSelects.includes(el)) {
@@ -128,7 +128,7 @@ const Home = () => {
           <div className="w-20 text-white" />
           <button
             type="button"
-            className="w-20 rounded-full bg-gray-400 px-1 py-4 text-sm font-bold text-white outline outline-gray-600 disabled:opacity-50 disabled:outline-none"
+            className="w-20 rounded-full bg-teal-500 px-1 py-4 text-sm font-bold text-white disabled:brightness-75"
             disabled={!defenseSelects.length}
             onClick={() => setDecidedDefenseSelects(true)}
           >
