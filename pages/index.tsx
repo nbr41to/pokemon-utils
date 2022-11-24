@@ -38,12 +38,22 @@ const Home = () => {
           <div className="w-20 text-white" />
         </div>
       ) : (
-        <div className="h-[292px] space-y-2">
+        <div className="h-[252px] space-y-2">
           <div className="space-y-4">
-            <p>{types[attackSelect].label}で攻撃</p>
+            <p>
+              <span
+                className={clsx(
+                  'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
+                  types[attackSelect].color
+                )}
+              >
+                {types[attackSelect].label}
+              </span>{' '}
+              で攻撃
+            </p>
 
             <p className="flex items-center gap-2">
-              ×2.0
+              <span className="font-bold text-red-600">×2.0</span>
               <div className="flex flex-wrap gap-1">
                 {types[attackSelect].attack.double.map((type) => (
                   <span
@@ -60,7 +70,7 @@ const Home = () => {
             </p>
 
             <p className="flex items-center gap-2">
-              ×0.5
+              <span className="font-bold text-blue-700">×0.5</span>
               {types[attackSelect].attack.half.map((type) => (
                 <span
                   key={`${type}-attack`}
@@ -75,7 +85,7 @@ const Home = () => {
             </p>
 
             <p className="flex items-center gap-2">
-              ×0.0
+              <span className="font-bold">×0.0</span>
               {types[attackSelect].attack.none.map((type) => (
                 <span
                   key={`${type}-attack`}
@@ -143,7 +153,7 @@ const Home = () => {
                 <span
                   key={`${type}-defense-selects`}
                   className={clsx(
-                    'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
+                    'mr-1 whitespace-nowrap rounded py-1 px-2 text-xs text-white',
                     types[type].color
                   )}
                 >
@@ -155,7 +165,7 @@ const Home = () => {
 
             {result2TypeDefense && 'quadruple' in result2TypeDefense && (
               <p className="flex items-center gap-2">
-                ×4.00
+                <span className="font-bold text-amber-500">×4.00</span>
                 <div className="flex flex-wrap gap-1">
                   {result2TypeDefense.quadruple.map((type) => (
                     <span
@@ -173,7 +183,7 @@ const Home = () => {
             )}
 
             <p className="flex items-center gap-2">
-              ×2.00
+              <span className="font-bold text-red-600">×2.00</span>
               <div className="flex flex-wrap gap-1">
                 {result2TypeDefense?.double.map((type) => (
                   <span
@@ -190,7 +200,7 @@ const Home = () => {
             </p>
 
             <p className="flex items-center gap-2">
-              ×0.50
+              <span className="font-bold text-blue-700">×0.50</span>
               <div className="flex flex-wrap gap-1">
                 {result2TypeDefense?.half.map((type) => (
                   <span
@@ -208,7 +218,7 @@ const Home = () => {
 
             {result2TypeDefense && 'quarter' in result2TypeDefense && (
               <p className="flex items-center gap-2">
-                ×0.25
+                <span className="font-bold text-violet-600">×0.25</span>
                 <div className="flex flex-wrap gap-1">
                   {result2TypeDefense.quarter.map((type) => (
                     <span
@@ -226,7 +236,7 @@ const Home = () => {
             )}
 
             <p className="flex items-center gap-2">
-              ×0.00
+              <span className="font-bold">×0.00</span>
               <div className="flex flex-wrap gap-1">
                 {result2TypeDefense?.none.map((type) => (
                   <span
