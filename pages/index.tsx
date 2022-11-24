@@ -15,7 +15,7 @@ const Home = () => {
   );
 
   return (
-    <div className="px-4">
+    <div className="mx-auto max-w-[400px] px-4">
       <h2 className="my-2 text-lg font-bold">攻撃する技のタイプ</h2>
       {!attackSelect ? (
         <div className="gap flex flex-wrap justify-center gap-2">
@@ -24,7 +24,7 @@ const Home = () => {
               key={`${el}-attack`}
               type="button"
               className={clsx(
-                'w-20 rounded-md px-1 py-4 text-sm font-bold text-white',
+                'w-20 rounded-md px-1 py-3 text-sm font-bold text-white',
                 'active:brightness-60',
                 types[el].color,
                 attackSelect === el && 'brightness-60'
@@ -34,6 +34,8 @@ const Home = () => {
               {types[el].label}
             </button>
           ))}
+          <div className="w-20 text-white" />
+          <div className="w-20 text-white" />
         </div>
       ) : (
         <div className="h-[292px] space-y-2">
@@ -98,43 +100,41 @@ const Home = () => {
         </div>
       )}
 
-      <h2 className="mt-8 mb-2 text-lg font-bold">受けるポケモンのタイプ</h2>
+      <h2 className="mt-6 mb-2 text-lg font-bold">受けるポケモンのタイプ</h2>
       {!decidedDefenseSelects ? (
-        <>
-          <div className="gap flex flex-wrap justify-center gap-2">
-            {elementals.map((el) => (
-              <button
-                key={`${el}-defense`}
-                type="button"
-                className={clsx(
-                  'w-20 rounded-md px-1 py-4 text-sm font-bold text-white',
-                  types[el].color,
-                  defenseSelects.includes(el) &&
-                    'scale-90 opacity-70 outline outline-rose-600'
-                )}
-                onClick={() => {
-                  if (defenseSelects.includes(el)) {
-                    setDefenseSelects(defenseSelects.filter((d) => d !== el));
-                  } else {
-                    if (defenseSelects.length >= 2) return;
-                    setDefenseSelects([...defenseSelects, el]);
-                  }
-                }}
-              >
-                {types[el].label}
-              </button>
-            ))}
-          </div>
-
+        <div className="gap flex flex-wrap justify-center gap-2">
+          {elementals.map((el) => (
+            <button
+              key={`${el}-defense`}
+              type="button"
+              className={clsx(
+                'w-20 rounded-md px-1 py-3 text-sm font-bold text-white',
+                types[el].color,
+                defenseSelects.includes(el) &&
+                  'scale-90 opacity-70 outline outline-rose-600'
+              )}
+              onClick={() => {
+                if (defenseSelects.includes(el)) {
+                  setDefenseSelects(defenseSelects.filter((d) => d !== el));
+                } else {
+                  if (defenseSelects.length >= 2) return;
+                  setDefenseSelects([...defenseSelects, el]);
+                }
+              }}
+            >
+              {types[el].label}
+            </button>
+          ))}
+          <div className="w-20 text-white" />
           <button
             type="button"
-            className="mt-4 w-full  rounded-md bg-gray-400 py-3 text-white shadow disabled:opacity-50"
+            className="w-20 rounded-full bg-gray-400 px-1 py-4 text-sm font-bold text-white outline outline-gray-600 disabled:opacity-50 disabled:outline-none"
             disabled={!defenseSelects.length}
             onClick={() => setDecidedDefenseSelects(true)}
           >
             決定
           </button>
-        </>
+        </div>
       ) : (
         <div className="space-y-2">
           <div className="space-y-4">
