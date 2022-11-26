@@ -340,6 +340,20 @@ export const getResult2TypeDefense = (type1: Elemental, type2: Elemental) => {
   };
 };
 
-// const generateCompatibilityTable = (type: Elemental) => {
-//   const rows = Object.keys(types).map((key:Type) => {
-//     const a = types[key];
+export const generateCompatibilityTable = (type: Elemental) => {
+  const rows = Object.keys(types).map((key: Elemental) => {
+    if (types[key].defense.double.includes(type)) {
+      return '○';
+    }
+    if (types[key].defense.half.includes(type)) {
+      return '△';
+    }
+    if (types[key].defense.none.includes(type)) {
+      return '×';
+    }
+
+    return '';
+  });
+
+  return rows;
+};

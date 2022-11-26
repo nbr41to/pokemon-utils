@@ -15,10 +15,18 @@ export const DefenseTypeChecker: FC = () => {
     () => getResult2TypeDefense(selects[0], selects[1]),
     [selects]
   );
+  const onSelect = (el: Elemental) => {
+    if (selects.includes(el)) {
+      setSelects(selects.filter((d) => d !== el));
+    } else {
+      if (selects.length >= 2) return;
+      setSelects([...selects, el]);
+    }
+  };
 
   return (
     <div>
-      <TypeMultiSelect value={selects} setValue={setSelects} />
+      <TypeMultiSelect value={selects} onSelect={onSelect} />
       {isSelected && (
         <div className="mt-4 space-y-2">
           <div className="space-y-4 p-4">

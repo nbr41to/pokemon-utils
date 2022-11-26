@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { AccordionButton } from '@/components/AccordionButton';
 import { AttackTypeChecker } from '@/components/AttackTypeChecker';
-import { CompatibilityTable } from '@/components/CompatibilityTable';
+import { CompatibilityChecker } from '@/components/CompatibilityChecker';
 import { DefenseTypeChecker } from '@/components/DefenseTypeChecker';
 
 const Home = () => {
@@ -32,7 +32,7 @@ const Home = () => {
         value={visibleCompatibilityTable}
         onClick={() => setVisibleCompatibilityTable((v) => !v)}
       />
-      {visibleCompatibilityTable && <CompatibilityTable />}
+      {visibleCompatibilityTable && <CompatibilityChecker />}
     </div>
   );
 };

@@ -8,10 +8,17 @@ import { elementals, types } from 'src/utils';
 
 type Props = {
   value: Elemental[];
-  setValue: (value: Elemental[]) => void;
+  onSelect: (el: Elemental) => void;
+  onSelectAll?: () => void;
+  onClear?: () => void;
 };
 
-export const TypeMultiSelect: FC<Props> = ({ value, setValue }) => {
+export const TypeMultiSelect: FC<Props> = ({
+  value,
+  onSelect,
+  onSelectAll,
+  onClear,
+}) => {
   const isSelected = useMemo(() => value.length >= 1, [value]);
 
   return (
@@ -25,20 +32,36 @@ export const TypeMultiSelect: FC<Props> = ({ value, setValue }) => {
             types[el].color,
             !value.includes(el) && isSelected && 'opacity-30 saturate-50'
           )}
-          onClick={() => {
-            if (value.includes(el)) {
-              setValue(value.filter((d) => d !== el));
-            } else {
-              if (value.length >= 2) return;
-              setValue([...value, el]);
-            }
-          }}
+          onClick={() => onSelect(el)}
         >
           {types[el].label}
         </button>
       ))}
-      <div className="w-20 text-white" />
-      <div className="w-20 text-white" />
+      {onSelectAll ? (
+        <button
+          type="button"
+          className="w-20 rounded-full bg-teal-500 px-1 py-4 text-sm font-bold text-white disabled:opacity-50"
+          disabled={value.length === elementals.length}
+          onClick={onSelectAll}
+        >
+          全て
+        </button>
+      ) : (
+        <div className="w-20 text-white" />
+      )}
+
+      {onClear ? (
+        <button
+          type="button"
+          className="w-20 rounded-full bg-gray-700 px-1 py-4 text-sm font-bold text-white disabled:opacity-50"
+          disabled={!value.length}
+          onClick={onClear}
+        >
+          クリア
+        </button>
+      ) : (
+        <div className="w-20 text-white" />
+      )}
     </div>
   );
 };
