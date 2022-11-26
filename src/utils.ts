@@ -109,6 +109,20 @@ export const types: Type = {
       none: [],
     },
   },
+  kori: {
+    label: 'こおり',
+    color: 'bg-cyan-400',
+    attack: {
+      double: ['kusa', 'zimen', 'hiko', 'dragon'],
+      half: ['hono', 'mizu', 'kori', 'hagane'],
+      none: [],
+    },
+    defense: {
+      double: ['hono', 'kakutou', 'iwa', 'hagane'],
+      half: ['kori'],
+      none: [],
+    },
+  },
   kakutou: {
     label: 'かくとう',
     color: 'bg-orange-600',
@@ -134,20 +148,6 @@ export const types: Type = {
     defense: {
       double: ['zimen', 'esper'],
       half: ['kusa', 'kakutou', 'doku', 'mushi', 'fairy'],
-      none: [],
-    },
-  },
-  kori: {
-    label: 'こおり',
-    color: 'bg-cyan-400',
-    attack: {
-      double: ['kusa', 'zimen', 'hiko', 'dragon'],
-      half: ['hono', 'mizu', 'kori', 'hagane'],
-      none: [],
-    },
-    defense: {
-      double: ['hono', 'kakutou', 'iwa', 'hagane'],
-      half: ['kori'],
       none: [],
     },
   },
@@ -341,6 +341,7 @@ export const getResult2TypeDefense = (type1: Elemental, type2: Elemental) => {
 };
 
 export const generateCompatibilityTable = (type: Elemental) => {
+  // @ts-expect-error ignore
   const rows = Object.keys(types).map((key: Elemental) => {
     if (types[key].defense.double.includes(type)) {
       return '○';
