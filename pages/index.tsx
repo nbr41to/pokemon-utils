@@ -12,7 +12,7 @@ const Home = () => {
     useState(false);
 
   return (
-    <div className="mx-auto max-w-[400px] px-4">
+    <div className="mx-auto min-h-[calc(100vh-68px)] max-w-[400px] px-4 pb-32">
       <AccordionButton
         label="攻撃する技のタイプ"
         value={visibleAttackChecker}
