@@ -1,270 +1,38 @@
-import type { Elemental } from 'src/utils';
+import { useState } from 'react';
 
-import clsx from 'clsx';
-import { useState, useMemo } from 'react';
-
-import { getResult2TypeDefense, elementals, types } from 'src/utils';
+import { AccordionButton } from '@/components/AccordionButton';
+import { AttackTypeChecker } from '@/components/AttackTypeChecker';
+import { CompatibilityTable } from '@/components/CompatibilityTable';
+import { DefenseTypeChecker } from '@/components/DefenseTypeChecker';
 
 const Home = () => {
-  const [attackSelect, setAttackSelect] = useState<Elemental>();
-  const [defenseSelects, setDefenseSelects] = useState<Elemental[]>([]);
-  const [decidedDefenseSelects, setDecidedDefenseSelects] = useState(false);
-  const result2TypeDefense = useMemo(
-    () => getResult2TypeDefense(defenseSelects[0], defenseSelects[1]),
-    [defenseSelects]
-  );
+  const [visibleAttackChecker, setVisibleAttackChecker] = useState(false);
+  const [visibleDefenseChecker, setVisibleDefenseChecker] = useState(false);
+  const [visibleCompatibilityTable, setVisibleCompatibilityTable] =
+    useState(false);
 
   return (
     <div className="mx-auto max-w-[400px] px-4">
-      <h2 className="my-2 text-lg font-bold">攻撃する技のタイプ</h2>
-      {!attackSelect ? (
-        <div className="gap flex flex-wrap justify-center gap-2">
-          {elementals.map((el) => (
-            <button
-              key={`${el}-attack`}
-              type="button"
-              className={clsx(
-                'w-20 rounded-md px-1 py-3 text-sm font-bold text-white',
-                'active:brightness-60',
-                types[el].color,
-                attackSelect === el && 'brightness-60'
-              )}
-              onClick={() => setAttackSelect(el)}
-            >
-              {types[el].label}
-            </button>
-          ))}
-          <div className="w-20 text-white" />
-          <div className="w-20 text-white" />
-        </div>
-      ) : (
-        <div className="h-[252px] space-y-2">
-          <div className="space-y-4">
-            <p>
-              <span
-                className={clsx(
-                  'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                  types[attackSelect].color
-                )}
-              >
-                {types[attackSelect].label}
-              </span>{' '}
-              で攻撃
-            </p>
+      <AccordionButton
+        label="攻撃する技のタイプ"
+        value={visibleAttackChecker}
+        onClick={() => setVisibleAttackChecker((v) => !v)}
+      />
+      {visibleAttackChecker && <AttackTypeChecker />}
 
-            <p className="flex items-center gap-2">
-              <span className="font-bold text-red-600">×2.0</span>
-              <div className="flex flex-wrap gap-1">
-                {types[attackSelect].attack.double.map((type) => (
-                  <span
-                    key={`${type}-attack`}
-                    className={clsx(
-                      'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                      types[type].color
-                    )}
-                  >
-                    {types[type].label}
-                  </span>
-                ))}
-              </div>
-            </p>
+      <AccordionButton
+        label="受けるポケモンのタイプ"
+        value={visibleDefenseChecker}
+        onClick={() => setVisibleDefenseChecker((v) => !v)}
+      />
+      {visibleDefenseChecker && <DefenseTypeChecker />}
 
-            <p className="flex items-center gap-2">
-              <span className="font-bold text-blue-700">×0.5</span>
-              {types[attackSelect].attack.half.map((type) => (
-                <span
-                  key={`${type}-attack`}
-                  className={clsx(
-                    'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                    types[type].color
-                  )}
-                >
-                  {types[type].label}
-                </span>
-              ))}
-            </p>
-
-            <p className="flex items-center gap-2">
-              <span className="font-bold">×0.0</span>
-              {types[attackSelect].attack.none.map((type) => (
-                <span
-                  key={`${type}-attack`}
-                  className={clsx(
-                    'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                    types[type].color
-                  )}
-                >
-                  {types[type].label}
-                </span>
-              ))}
-            </p>
-
-            <button
-              type="button"
-              className="w-full rounded-md bg-gray-400 py-3 text-white shadow"
-              onClick={() => setAttackSelect(undefined)}
-            >
-              戻る
-            </button>
-          </div>
-        </div>
-      )}
-
-      <h2 className="mt-6 mb-2 text-lg font-bold">受けるポケモンのタイプ</h2>
-      {!decidedDefenseSelects ? (
-        <div className="gap flex flex-wrap justify-center gap-2">
-          {elementals.map((el) => (
-            <button
-              key={`${el}-defense`}
-              type="button"
-              className={clsx(
-                'w-20 rounded-md px-1 py-3 text-sm font-bold text-white',
-                types[el].color,
-                defenseSelects.includes(el) &&
-                  'scale-90 border-red-600 opacity-60 brightness-75'
-              )}
-              onClick={() => {
-                if (defenseSelects.includes(el)) {
-                  setDefenseSelects(defenseSelects.filter((d) => d !== el));
-                } else {
-                  if (defenseSelects.length >= 2) return;
-                  setDefenseSelects([...defenseSelects, el]);
-                }
-              }}
-            >
-              {types[el].label}
-            </button>
-          ))}
-          <div className="w-20 text-white" />
-          <button
-            type="button"
-            className="w-20 rounded-full bg-teal-500 px-1 py-4 text-sm font-bold text-white disabled:brightness-75"
-            disabled={!defenseSelects.length}
-            onClick={() => setDecidedDefenseSelects(true)}
-          >
-            決定
-          </button>
-        </div>
-      ) : (
-        <div className="space-y-2">
-          <div className="space-y-4">
-            <p>
-              {defenseSelects.map((type) => (
-                <span
-                  key={`${type}-defense-selects`}
-                  className={clsx(
-                    'mr-1 whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                    types[type].color
-                  )}
-                >
-                  {types[type].label}
-                </span>
-              ))}{' '}
-              で受け
-            </p>
-
-            {result2TypeDefense && 'quadruple' in result2TypeDefense && (
-              <p className="flex items-center gap-2">
-                <span className="font-bold text-amber-500">×4.00</span>
-                <div className="flex flex-wrap gap-1">
-                  {result2TypeDefense.quadruple.map((type) => (
-                    <span
-                      key={`${type}-defense`}
-                      className={clsx(
-                        'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                        types[type].color
-                      )}
-                    >
-                      {types[type].label}
-                    </span>
-                  ))}
-                </div>
-              </p>
-            )}
-
-            <p className="flex items-center gap-2">
-              <span className="font-bold text-red-600">×2.00</span>
-              <div className="flex flex-wrap gap-1">
-                {result2TypeDefense?.double.map((type) => (
-                  <span
-                    key={`${type}-defense`}
-                    className={clsx(
-                      'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                      types[type].color
-                    )}
-                  >
-                    {types[type].label}
-                  </span>
-                ))}
-              </div>
-            </p>
-
-            <p className="flex items-center gap-2">
-              <span className="font-bold text-blue-700">×0.50</span>
-              <div className="flex flex-wrap gap-1">
-                {result2TypeDefense?.half.map((type) => (
-                  <span
-                    key={`${type}-defense`}
-                    className={clsx(
-                      'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                      types[type].color
-                    )}
-                  >
-                    {types[type].label}
-                  </span>
-                ))}
-              </div>
-            </p>
-
-            {result2TypeDefense && 'quarter' in result2TypeDefense && (
-              <p className="flex items-center gap-2">
-                <span className="font-bold text-violet-600">×0.25</span>
-                <div className="flex flex-wrap gap-1">
-                  {result2TypeDefense.quarter.map((type) => (
-                    <span
-                      key={`${type}-defense`}
-                      className={clsx(
-                        'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                        types[type].color
-                      )}
-                    >
-                      {types[type].label}
-                    </span>
-                  ))}
-                </div>
-              </p>
-            )}
-
-            <p className="flex items-center gap-2">
-              <span className="font-bold">×0.00</span>
-              <div className="flex flex-wrap gap-1">
-                {result2TypeDefense?.none.map((type) => (
-                  <span
-                    key={`${type}-defense`}
-                    className={clsx(
-                      'whitespace-nowrap rounded py-1 px-2 text-xs text-white',
-                      types[type].color
-                    )}
-                  >
-                    {types[type].label}
-                  </span>
-                ))}
-              </div>
-            </p>
-          </div>
-
-          <button
-            type="button"
-            className="w-full rounded-md bg-gray-400 py-3 text-white shadow"
-            onClick={() => {
-              setDecidedDefenseSelects(false);
-              setDefenseSelects([]);
-            }}
-          >
-            戻る
-          </button>
-        </div>
-      )}
+      <AccordionButton
+        label="タイプ相性表を見る"
+        value={visibleCompatibilityTable}
+        onClick={() => setVisibleCompatibilityTable((v) => !v)}
+      />
+      {visibleCompatibilityTable && <CompatibilityTable />}
     </div>
   );
 };

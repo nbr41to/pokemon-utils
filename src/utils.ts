@@ -339,3 +339,7 @@ export const getResult2TypeDefense = (type1: Elemental, type2: Elemental) => {
     none,
   };
 };
+
+// const generateCompatibilityTable = (type: Elemental) => {
+//   const rows = Object.keys(types).map((key:Type) => {
+//     const a = types[key];
