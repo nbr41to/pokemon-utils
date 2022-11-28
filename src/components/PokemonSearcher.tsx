@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { Pokemon } from 'src/getPokemons';
+import type { Pokemon } from 'src/utils';
 
 import clsx from 'clsx';
 import { useState, useMemo } from 'react';

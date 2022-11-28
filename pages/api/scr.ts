@@ -1,18 +1,12 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type { Pokemon } from 'src/utils';
+
 import puppeteer from 'puppeteer';
 
-export type Pokemon = {
-  no: string;
-  name: string;
-  h: string;
-  a: string;
-  b: string;
-  c: string;
-  d: string;
-  s: string;
-  total: string;
-};
-
-export const getPokemons = async () => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Pokemon[]>
+) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const url = 'https://yakkun.com/sv/stats_list.htm';
@@ -47,5 +41,5 @@ export const getPokemons = async () => {
 
   await browser.close();
 
-  return list;
-};
+  res.status(200).json(list);
+}

@@ -1,3 +1,15 @@
+export type Pokemon = {
+  no: string;
+  name: string;
+  h: string;
+  a: string;
+  b: string;
+  c: string;
+  d: string;
+  s: string;
+  total: string;
+};
+
 export const elementals = [
   'normal',
   'hono',

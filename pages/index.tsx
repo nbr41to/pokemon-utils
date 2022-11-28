@@ -8,10 +8,9 @@ import { CompatibilityChecker } from '@/components/CompatibilityChecker';
 import { DefenseTypeChecker } from '@/components/DefenseTypeChecker';
 import { PokemonSearcher } from '@/components/PokemonSearcher';
 
-import { getPokemons } from 'src/getPokemons';
-
 export const getStaticProps = async () => {
-  const list = await getPokemons();
+  const response = await fetch('/api/srp');
+  const list = await response.json();
 
   return {
     props: {
