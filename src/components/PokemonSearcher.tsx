@@ -17,9 +17,19 @@ export const PokemonSearcher: FC = () => {
   const filteredList = useMemo(() => {
     if (!inputText) return [];
 
-    return list.filter((pokemon) => {
-      return pokemon.name.includes(hiraToKata(inputText));
+    const inputTextKata = hiraToKata(inputText);
+    /* 前方一致を前にするように */
+    const startsWith = list.filter((pokemon) =>
+      pokemon.name.startsWith(inputTextKata)
+    );
+    const includes = list.filter((pokemon) => {
+      if (!startsWith.includes(pokemon))
+        return pokemon.name.includes(inputTextKata);
+
+      return false;
     });
+
+    return [...startsWith, ...includes];
   }, [inputText]);
 
   return (
