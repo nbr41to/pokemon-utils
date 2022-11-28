@@ -27,7 +27,7 @@ export const CompatibilityChecker: FC = () => {
         onSelectAll={() => setSelects([...elementals])}
         onClear={() => setSelects([])}
       />
-      <div className="mt-4">
+      <div className="mt-4 min-h-[372px]">
         <CompatibilityTable selects={selects} />
       </div>
     </div>

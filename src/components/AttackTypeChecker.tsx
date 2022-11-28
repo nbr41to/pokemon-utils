@@ -12,7 +12,7 @@ export const AttackTypeChecker: FC = () => {
   const [select, setSelect] = useState<Elemental>();
 
   return (
-    <div>
+    <div className="relative">
       {!select ? (
         <TypeSelect value={select} setValue={setSelect} />
       ) : (
@@ -67,7 +67,7 @@ export const AttackTypeChecker: FC = () => {
 
             <button
               type="button"
-              className="w-full rounded-md bg-gray-400 py-3 text-white shadow"
+              className="absolute bottom-2 w-full rounded-md bg-gray-400 py-3 text-white shadow"
               onClick={() => setSelect(undefined)}
             >
               戻る

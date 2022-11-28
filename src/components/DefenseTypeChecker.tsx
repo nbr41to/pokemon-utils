@@ -23,10 +23,13 @@ export const DefenseTypeChecker: FC = () => {
       setSelects([...selects, el]);
     }
   };
+  const onClear = () => {
+    setSelects([]);
+  };
 
   return (
-    <div>
-      <TypeMultiSelect value={selects} onSelect={onSelect} />
+    <div className="min-h-[548px]">
+      <TypeMultiSelect value={selects} onSelect={onSelect} onClear={onClear} />
       {isSelected && (
         <div className="mt-4 space-y-2">
           <div className="space-y-4 p-4">
@@ -99,16 +102,6 @@ export const DefenseTypeChecker: FC = () => {
               </div>
             </p>
           </div>
-
-          <button
-            type="button"
-            className="w-full rounded-md bg-gray-400 py-3 text-white shadow"
-            onClick={() => {
-              setSelects([]);
-            }}
-          >
-            戻る
-          </button>
         </div>
       )}
     </div>
