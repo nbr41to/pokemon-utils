@@ -1,4 +1,4 @@
-import type { InferGetStaticPropsType, NextPage } from 'next';
+import type { NextPage } from 'next';
 
 import { useState } from 'react';
 
@@ -8,23 +8,7 @@ import { CompatibilityChecker } from '@/components/CompatibilityChecker';
 import { DefenseTypeChecker } from '@/components/DefenseTypeChecker';
 import { PokemonSearcher } from '@/components/PokemonSearcher';
 
-import { getPokemons } from 'src/getPokemons';
-
-export const getStaticProps = async () => {
-  // const response = await fetch(`${process.env.BASE_URL}/api/scr`);
-  // const list = await response.json();
-  const list2 = await getPokemons();
-
-  return {
-    props: {
-      list: list2,
-    },
-  };
-};
-
-type Props = InferGetStaticPropsType<typeof getStaticProps>;
-
-const Home: NextPage<Props> = ({ list }) => {
+const Home: NextPage = () => {
   const [visibleAttackChecker, setVisibleAttackChecker] = useState(false);
   const [visibleDefenseChecker, setVisibleDefenseChecker] = useState(false);
   const [visibleCompatibilityTable, setVisibleCompatibilityTable] =
@@ -59,7 +43,7 @@ const Home: NextPage<Props> = ({ list }) => {
         value={visiblePokemonSearcher}
         onClick={() => setVisiblePokemonSearcher((v) => !v)}
       />
-      {visiblePokemonSearcher && <PokemonSearcher list={list} />}
+      {visiblePokemonSearcher && <PokemonSearcher />}
     </div>
   );
 };

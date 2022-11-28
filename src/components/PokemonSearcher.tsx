@@ -1,12 +1,9 @@
 import type { FC } from 'react';
-import type { Pokemon } from 'src/utils';
 
 import clsx from 'clsx';
 import { useState, useMemo } from 'react';
 
-type Props = {
-  list: Pokemon[];
-};
+import { list } from 'src/data';
 
 const hiraToKata = (value: string) => {
   return value.replace(/[\u3041-\u3096]/g, (ch) =>
@@ -14,7 +11,7 @@ const hiraToKata = (value: string) => {
   );
 };
 
-export const PokemonSearcher: FC<Props> = ({ list }) => {
+export const PokemonSearcher: FC = () => {
   const [inputText, setInputText] = useState('');
 
   const filteredList = useMemo(() => {
@@ -23,7 +20,7 @@ export const PokemonSearcher: FC<Props> = ({ list }) => {
     return list.filter((pokemon) => {
       return pokemon.name.includes(hiraToKata(inputText));
     });
-  }, [inputText, list]);
+  }, [inputText]);
 
   return (
     <div className="min-h-[900px]">
