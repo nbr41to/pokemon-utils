@@ -9,7 +9,7 @@ import { DefenseTypeChecker } from '@/components/DefenseTypeChecker';
 import { PokemonSearcher } from '@/components/PokemonSearcher';
 
 export const getStaticProps = async () => {
-  const response = await fetch('/api/srp');
+  const response = await fetch(`${process.env.BASE_URL}/api/scr`);
   const list = await response.json();
 
   return {
