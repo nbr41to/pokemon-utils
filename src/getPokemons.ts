@@ -40,13 +40,13 @@ export const getPokemons = async () => {
       })
     );
 
+    await browser.close();
+
     const list = array.map((data) => {
       const [no, name, h, a, b, c, d, s, total] = data;
 
       return { no, name, h, a, b, c, d, s, total };
     });
-
-    await browser.close();
 
     return list;
   } catch (error) {

@@ -21,7 +21,7 @@ export const PokemonSearcher: FC<Props> = ({ list }) => {
     if (!inputText) return [];
 
     return list.filter((pokemon) => {
-      return pokemon.name.includes(inputText);
+      return pokemon.name.includes(hiraToKata(inputText));
     });
   }, [inputText, list]);
 
@@ -35,7 +35,7 @@ export const PokemonSearcher: FC<Props> = ({ list }) => {
             type="text"
             className="mt-1 rounded border px-3 py-2 text-lg font-bold"
             value={inputText}
-            onChange={(e) => setInputText(hiraToKata(e.target.value))}
+            onChange={(e) => setInputText(e.target.value)}
           />
         </label>
       </div>
