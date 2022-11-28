@@ -13,39 +13,46 @@ export type Pokemon = {
 };
 
 export const getPokemons = async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  const url = 'https://yakkun.com/sv/stats_list.htm';
-  await page.goto(url);
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    const url = 'https://yakkun.com/sv/stats_list.htm';
+    await page.goto(url);
 
-  const tableXPath = '//*[@id="contents"]/div[3]/div/table/tbody';
-  const table = await page.$x(tableXPath);
-  const rows = await table[0].$$('tr');
+    const tableXPath = '//*[@id="contents"]/div[3]/div/table/tbody';
+    const table = await page.$x(tableXPath);
+    const rows = await table[0].$$('tr');
 
-  const array = await Promise.all(
-    rows.map(async (row) => {
-      const cells = await row.$$('td');
-      const data = await Promise.all(
-        cells.map(async (cell) => {
-          // const text = await cell.evaluate((node) => node.textContent); // これでもいける
-          const jsHandle = await cell.getProperty('textContent');
-          const text = await jsHandle.jsonValue();
+    const array = await Promise.all(
+      rows.map(async (row) => {
+        const cells = await row.$$('td');
+        const data = await Promise.all(
+          cells.map(async (cell) => {
+            // const text = await cell.evaluate((node) => node.textContent); // これでもいける
+            const jsHandle = await cell.getProperty('textContent');
+            const text = await jsHandle.jsonValue();
 
-          return text || '-';
-        })
-      );
+            return text || '-';
+          })
+        );
 
-      return data;
-    })
-  );
+        return data;
+      })
+    );
 
-  const list = array.map((data) => {
-    const [no, name, h, a, b, c, d, s, total] = data;
+    const list = array.map((data) => {
+      const [no, name, h, a, b, c, d, s, total] = data;
 
-    return { no, name, h, a, b, c, d, s, total };
-  });
+      return { no, name, h, a, b, c, d, s, total };
+    });
 
-  await browser.close();
+    await browser.close();
 
-  return list;
+    return list;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+
+    return [];
+  }
 };

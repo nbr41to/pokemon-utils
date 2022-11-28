@@ -3,7 +3,6 @@ module.exports = {
     'airbnb',
     'plugin:@typescript-eslint/recommended',
     'next/core-web-vitals',
-    'plugin:storybook/recommended',
     'prettier',
   ],
   plugins: ['unused-imports', 'import'],
