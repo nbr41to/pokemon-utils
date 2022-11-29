@@ -1,9 +1,11 @@
 import type { FC } from 'react';
+import type { Pokemon } from 'src/utils';
 
-import clsx from 'clsx';
 import { useState, useMemo } from 'react';
 
 import { list } from 'src/data';
+
+import { PokemonTable } from './PokemonTable';
 
 const hiraToKata = (value: string) => {
   return value.replace(/[\u3041-\u3096]/g, (ch) =>
@@ -13,6 +15,8 @@ const hiraToKata = (value: string) => {
 
 export const PokemonSearcher: FC = () => {
   const [inputText, setInputText] = useState('');
+  const [visibleAbilities, setVisibleAbilities] = useState(true);
+  const [pins, setPins] = useState<Pokemon[]>([]);
 
   const filteredList = useMemo(() => {
     if (!inputText) return [];
@@ -35,6 +39,22 @@ export const PokemonSearcher: FC = () => {
   return (
     <div className="min-h-[900px]">
       <div>
+        <label
+          htmlFor="toggle-abilities"
+          className="flex cursor-pointer justify-end gap-2 text-xs font-bold"
+        >
+          <input
+            id="toggle-abilities"
+            className="cursor-pointer"
+            checked={visibleAbilities}
+            onChange={() => setVisibleAbilities(!visibleAbilities)}
+            type="checkbox"
+          />
+          能力を表示する
+        </label>
+      </div>
+
+      <div>
         <label htmlFor="name" className="flex flex-col">
           <span className="text-xs font-bold">ポケモン名</span>
           <input
@@ -46,39 +66,25 @@ export const PokemonSearcher: FC = () => {
           />
         </label>
       </div>
-      <div className="mx-auto mt-4 w-fit divide-y rounded border text-xs">
-        {filteredList.length > 0 && (
-          <div className="flex divide-x bg-gray-200 pt-0.5">
-            <div className="w-20 p-1 text-center">名前</div>
-            <div className="w-9 p-1 text-center">HP</div>
-            <div className="w-9 p-1 text-center">攻撃</div>
-            <div className="w-9 p-1 text-center">防御</div>
-            <div className="w-9 p-1 text-center">特攻</div>
-            <div className="w-9 p-1 text-center">特防</div>
-            <div className="w-9 p-1 text-center">素早</div>
-            <div className="w-9 p-1 text-center">合計</div>
-          </div>
-        )}
 
-        {filteredList.map((pokemon, i) => {
-          return (
-            <div
-              // eslint-disable-next-line react/no-array-index-key
-              key={`${pokemon.no}-${i}`}
-              className={clsx('flex divide-x', i % 2 === 1 && 'bg-slate-100')}
-            >
-              <div className="w-20 p-1 text-xs">{pokemon.name}</div>
-              <div className="w-9 p-1 text-right">{pokemon.h}</div>
-              <div className="w-9 p-1 text-right">{pokemon.a}</div>
-              <div className="w-9 p-1 text-right">{pokemon.b}</div>
-              <div className="w-9 p-1 text-right">{pokemon.c}</div>
-              <div className="w-9 p-1 text-right">{pokemon.d}</div>
-              <div className="w-9 p-1 text-right">{pokemon.s}</div>
-              <div className="w-9 p-1 text-right">{pokemon.total}</div>
-            </div>
-          );
-        })}
+      <div className="flex h-8 items-center justify-center">
+        {filteredList.length > 0 && pins.length === 0 && (
+          <p className="text-sm">💡名前を押すとピン留めに登録できます。</p>
+        )}
       </div>
+
+      <PokemonTable
+        visibleAbilities={visibleAbilities}
+        pins={pins}
+        list={filteredList}
+        onClick={(pokemon) => {
+          if (pins.includes(pokemon)) {
+            setPins(pins.filter((d) => d !== pokemon));
+          } else {
+            setPins([...pins, pokemon]);
+          }
+        }}
+      />
     </div>
   );
 };
