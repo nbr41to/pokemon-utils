@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import type { Pokemon } from 'src/utils';
 
-import { useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import { list } from 'src/data';
 
@@ -36,35 +36,43 @@ export const PokemonSearcher: FC = () => {
     return [...startsWith, ...includes];
   }, [inputText]);
 
+  useEffect(() => {
+    /* auto focus */
+    const input = document.getElementById('name');
+    if (input) input.focus();
+  }, []);
+
   return (
     <div className="min-h-[900px]">
-      <div>
-        <label
-          htmlFor="toggle-abilities"
-          className="flex cursor-pointer justify-end gap-2 py-2 text-xs font-bold"
-        >
-          <input
-            id="toggle-abilities"
-            className="cursor-pointer"
-            checked={visibleAbilities}
-            onChange={() => setVisibleAbilities(!visibleAbilities)}
-            type="checkbox"
-          />
-          能力を表示する
-        </label>
-      </div>
+      <div className="px-4">
+        <div>
+          <label
+            htmlFor="toggle-abilities"
+            className="flex cursor-pointer justify-end gap-2 py-2 text-xs font-bold"
+          >
+            <input
+              id="toggle-abilities"
+              className="cursor-pointer"
+              checked={visibleAbilities}
+              onChange={() => setVisibleAbilities(!visibleAbilities)}
+              type="checkbox"
+            />
+            能力を表示する
+          </label>
+        </div>
 
-      <div>
-        <label htmlFor="name" className="flex flex-col">
-          <span className="text-xs font-bold">ポケモン名</span>
-          <input
-            id="name"
-            type="text"
-            className="mt-1 rounded border px-3 py-2 text-lg font-bold"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-          />
-        </label>
+        <div>
+          <label htmlFor="name" className="flex flex-col">
+            <span className="text-xs font-bold">ポケモン名</span>
+            <input
+              id="name"
+              type="search"
+              className="mt-1 rounded border px-3 py-2 text-lg font-bold"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+            />
+          </label>
+        </div>
       </div>
 
       <div className="flex h-8 items-center justify-center">
