@@ -41,7 +41,7 @@ export const PokemonSearcher: FC = () => {
       <div>
         <label
           htmlFor="toggle-abilities"
-          className="flex cursor-pointer justify-end gap-2 text-xs font-bold"
+          className="flex cursor-pointer justify-end gap-2 py-2 text-xs font-bold"
         >
           <input
             id="toggle-abilities"

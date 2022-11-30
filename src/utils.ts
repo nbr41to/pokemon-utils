@@ -334,15 +334,19 @@ export const getResult2TypeDefense = (type1: Elemental, type2: Elemental) => {
   const offset1Half = type1Half.filter((type) => !type2Double.includes(type));
   const offset2Half = type2Half.filter((type) => !type1Double.includes(type));
 
-  const quadruple = type1Double.filter((type) => type2Double.includes(type));
-  const quarter = type1Half.filter((type) => type2Half.includes(type));
+  const none = type1None.concat(type2None);
+  const quadruple = type1Double.filter(
+    (type) => type2Double.includes(type) && !none.includes(type)
+  );
+  const quarter = type1Half.filter(
+    (type) => type2Half.includes(type) && !none.includes(type)
+  );
   const double = offset1Double
     .concat(offset2Double)
-    .filter((type) => !quadruple.includes(type));
+    .filter((type) => !quadruple.includes(type) && !none.includes(type));
   const half = offset1Half
     .concat(offset2Half)
-    .filter((type) => !quarter.includes(type));
-  const none = type1None.concat(type2None);
+    .filter((type) => !quarter.includes(type) && !none.includes(type));
 
   return {
     quadruple,

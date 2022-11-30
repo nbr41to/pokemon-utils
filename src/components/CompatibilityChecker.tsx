@@ -20,14 +20,14 @@ export const CompatibilityChecker: FC = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <TypeMultiSelect
         value={selects}
         onSelect={onSelect}
         onSelectAll={() => setSelects([...elementals])}
         onClear={() => setSelects([])}
       />
-      <div className="mt-4 min-h-[372px]">
+      <div className="mx-auto mt-4 min-h-[372px] w-fit">
         <CompatibilityTable selects={selects} />
       </div>
     </div>

@@ -40,7 +40,7 @@ export const TypeMultiSelect: FC<Props> = ({
       {onSelectAll ? (
         <button
           type="button"
-          className="w-20 rounded-full bg-teal-500 px-1 py-4 text-sm font-bold text-white disabled:opacity-50"
+          className="w-20 rounded-full bg-teal-500 text-sm font-bold text-white disabled:opacity-20"
           disabled={value.length === elementals.length}
           onClick={onSelectAll}
         >
@@ -53,7 +53,7 @@ export const TypeMultiSelect: FC<Props> = ({
       {onClear ? (
         <button
           type="button"
-          className="w-20 rounded-full bg-gray-700 px-1 py-4 text-sm font-bold text-white disabled:opacity-50"
+          className="w-20 rounded-full bg-gray-700 text-sm font-bold text-white disabled:opacity-20"
           disabled={!value.length}
           onClick={onClear}
         >
