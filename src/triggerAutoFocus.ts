@@ -2,7 +2,7 @@ import { useRef } from 'react';
 
 export const useAutoFocus = <RefType extends HTMLElement>() => {
   const ref = useRef<RefType>(null);
-  const triggerAutoFocus = (timeout = 100) => {
+  const triggerAutoFocus = (timeout = 1000) => {
     if (!ref.current) return;
     const empEl = document.createElement('input');
     empEl.style.position = 'absolute';
