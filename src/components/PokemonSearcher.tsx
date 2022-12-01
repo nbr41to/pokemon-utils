@@ -1,10 +1,9 @@
 import type { FC } from 'react';
 import type { Pokemon } from 'src/utils';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 
 import { list } from 'src/data';
-import { useAutoFocus } from 'src/triggerAutoFocus';
 
 import { PokemonTable } from './PokemonTable';
 
@@ -15,7 +14,7 @@ const hiraToKata = (value: string) => {
 };
 
 export const PokemonSearcher: FC = () => {
-  const { ref, triggerAutoFocus } = useAutoFocus();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [inputText, setInputText] = useState('');
   const [visibleAbilities, setVisibleAbilities] = useState(true);
   const [pins, setPins] = useState<Pokemon[]>([]);
@@ -39,8 +38,8 @@ export const PokemonSearcher: FC = () => {
   }, [inputText]);
 
   useEffect(() => {
-    triggerAutoFocus();
-  }, [triggerAutoFocus]);
+    if (inputRef.current) inputRef.current.focus();
+  }, []);
 
   return (
     <div className="min-h-[900px]">
@@ -66,8 +65,7 @@ export const PokemonSearcher: FC = () => {
             <span className="text-xs font-bold">ポケモン名</span>
             <input
               id="name"
-              // @ts-expect-error うーん
-              ref={ref}
+              ref={inputRef}
               type="text"
               className="mt-1 rounded border px-3 py-2 text-lg font-bold"
               value={inputText}
