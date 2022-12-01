@@ -66,7 +66,7 @@ export const PokemonSearcher: FC = () => {
             <span className="text-xs font-bold">ポケモン名</span>
             <input
               id="name"
-              type="search"
+              type="text"
               className="mt-1 rounded border px-3 py-2 text-lg font-bold"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
