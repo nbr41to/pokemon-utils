@@ -93,6 +93,14 @@ export const PokemonSearcher: FC = () => {
           }
         }}
       />
+
+      <button
+        type="button"
+        className="fixed right-20 bottom-10 z-10 bg-white text-red-600"
+        onClick={() => inputRef?.current?.focus()}
+      >
+        入力
+      </button>
     </div>
   );
 };
