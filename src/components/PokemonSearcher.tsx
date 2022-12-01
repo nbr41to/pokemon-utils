@@ -1,7 +1,9 @@
 import type { FC } from 'react';
 import type { Pokemon } from 'src/utils';
 
+import clsx from 'clsx';
 import { useRef, useEffect, useState, useMemo } from 'react';
+import { TbKeyboard } from 'react-icons/tb';
 
 import { list } from 'src/data';
 
@@ -96,10 +98,14 @@ export const PokemonSearcher: FC = () => {
 
       <button
         type="button"
-        className="fixed right-20 bottom-10 z-10 bg-white text-red-600"
+        className={clsx(
+          'fixed items-center justify-center',
+          'right-2 bottom-20 z-10 flex h-14 w-14 rounded-full bg-orange-500 text-white opacity-50',
+          'block md:hidden'
+        )}
         onClick={() => inputRef?.current?.focus()}
       >
-        入力
+        <TbKeyboard size={32} />
       </button>
     </div>
   );
