@@ -16,7 +16,7 @@ export const AttackTypeChecker: FC = () => {
       {!select ? (
         <TypeSelect value={select} setValue={setSelect} />
       ) : (
-        <div className="h-[252px] space-y-2">
+        <div className="h-[252px] space-y-2 px-4">
           <div className="space-y-4">
             <p>
               <TypeLabel

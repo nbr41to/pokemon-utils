@@ -31,7 +31,7 @@ export const DefenseTypeChecker: FC = () => {
     <div className="min-h-[548px]">
       <TypeMultiSelect value={selects} onSelect={onSelect} onClear={onClear} />
       {isSelected && (
-        <div className="mt-4 space-y-2">
+        <div className="mt-4 space-y-2 px-4">
           <div className="space-y-4 p-4">
             {result2TypeDefense && 'quadruple' in result2TypeDefense && (
               <p className="flex items-center gap-2">
