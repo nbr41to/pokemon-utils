@@ -38,7 +38,11 @@ export const PokemonSearcher: FC = () => {
   }, [inputText]);
 
   useEffect(() => {
-    if (inputRef.current) inputRef.current.focus();
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 1000);
   }, []);
 
   return (
