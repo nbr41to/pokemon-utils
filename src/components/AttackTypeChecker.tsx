@@ -16,8 +16,8 @@ export const AttackTypeChecker: FC = () => {
       {!select ? (
         <TypeSelect value={select} setValue={setSelect} />
       ) : (
-        <div className="h-[252px] space-y-2 px-4">
-          <div className="space-y-4">
+        <div className="h-[252px]">
+          <div className="space-y-4 px-4">
             <p>
               <TypeLabel
                 label={types[select].label}
@@ -64,15 +64,15 @@ export const AttackTypeChecker: FC = () => {
                 ))}
               </div>
             </p>
-
-            <button
-              type="button"
-              className="absolute bottom-2 w-full rounded-md bg-gray-400 py-3 text-white shadow"
-              onClick={() => setSelect(undefined)}
-            >
-              戻る
-            </button>
           </div>
+
+          <button
+            type="button"
+            className="absolute bottom-2 w-full rounded-md bg-gray-400 py-3 text-white shadow"
+            onClick={() => setSelect(undefined)}
+          >
+            戻る
+          </button>
         </div>
       )}
     </div>
