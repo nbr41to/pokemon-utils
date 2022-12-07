@@ -1,4 +1,4 @@
-import type { Pokemon } from './utils';
+import type { Pokemon } from 'src/types';
 
 /* `/api/scr`で取得したData */
 export const list: Pokemon[] = [

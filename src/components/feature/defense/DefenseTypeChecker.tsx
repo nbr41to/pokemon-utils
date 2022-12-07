@@ -1,15 +1,20 @@
 import type { FC } from 'react';
-import type { Elemental } from 'src/utils';
+import type { Elemental } from 'src/types';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { getResult2TypeDefense, types } from 'src/utils';
+import { getResult2TypeDefense } from '@/utils/getResult2TypeDefense';
 
-import { TypeLabel } from './TypeLabel';
-import { TypeMultiSelect } from './TypeMultiSelect';
+import { types } from 'src/data/compatibilities';
+import { defenseCheckAtom } from 'src/store/atom';
+
+import { TypeLabel } from '../../TypeLabel';
+import { TypeMultiSelect } from '../../TypeMultiSelect';
 
 export const DefenseTypeChecker: FC = () => {
-  const [selects, setSelects] = useState<Elemental[]>([]);
+  const [selects, setSelects] = useRecoilState(defenseCheckAtom);
+
   const isSelected = useMemo(() => selects.length >= 1, [selects]);
   const result2TypeDefense = useMemo(
     () => getResult2TypeDefense(selects[0], selects[1]),

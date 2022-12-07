@@ -1,9 +1,11 @@
 import type { FC } from 'react';
-import type { Elemental } from 'src/utils';
+import type { Elemental } from 'src/types';
 
 import clsx from 'clsx';
 
-import { elementals, generateCompatibilityTable, types } from 'src/utils';
+import { generateCompatibilityTable } from '@/utils/generateCompatibilityTable';
+
+import { elementals, types } from 'src/data/compatibilities';
 
 type Props = {
   selects: Elemental[];

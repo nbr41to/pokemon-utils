@@ -1,15 +1,16 @@
 import type { FC } from 'react';
-import type { Elemental } from 'src/utils';
+import type { Elemental } from 'src/types';
 
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { elementals } from 'src/utils';
+import { elementals } from 'src/data/compatibilities';
+import { compatibilityCheckAtom } from 'src/store/atom';
 
+import { TypeMultiSelect } from '../../TypeMultiSelect';
 import { CompatibilityTable } from './CompatibilityTable';
-import { TypeMultiSelect } from './TypeMultiSelect';
 
 export const CompatibilityChecker: FC = () => {
-  const [selects, setSelects] = useState<Elemental[]>([...elementals]);
+  const [selects, setSelects] = useRecoilState(compatibilityCheckAtom);
 
   const onSelect = (el: Elemental) => {
     if (selects.includes(el)) {

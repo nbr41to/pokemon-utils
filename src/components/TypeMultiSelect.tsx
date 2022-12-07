@@ -1,10 +1,10 @@
 import type { FC } from 'react';
-import type { Elemental } from 'src/utils';
+import type { Elemental } from 'src/types';
 
 import clsx from 'clsx';
 import { useMemo } from 'react';
 
-import { elementals, types } from 'src/utils';
+import { elementals, types } from 'src/data/compatibilities';
 
 type Props = {
   value: Elemental[];

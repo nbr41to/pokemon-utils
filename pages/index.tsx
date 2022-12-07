@@ -3,10 +3,10 @@ import type { NextPage } from 'next';
 import { useState } from 'react';
 
 import { AccordionButton } from '@/components/AccordionButton';
-import { AttackTypeChecker } from '@/components/AttackTypeChecker';
-import { CompatibilityChecker } from '@/components/CompatibilityChecker';
-import { DefenseTypeChecker } from '@/components/DefenseTypeChecker';
-import { PokemonSearcher } from '@/components/PokemonSearcher';
+import { AttackTypeChecker } from '@/components/feature/attack/AttackTypeChecker';
+import { CompatibilityChecker } from '@/components/feature/compatibility/CompatibilityChecker';
+import { DefenseTypeChecker } from '@/components/feature/defense/DefenseTypeChecker';
+import { PokemonSearcher } from '@/components/feature/search/PokemonSearcher';
 
 const Home: NextPage = () => {
   const [visibleAttackChecker, setVisibleAttackChecker] = useState(false);

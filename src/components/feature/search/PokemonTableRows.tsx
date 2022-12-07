@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { Pokemon } from 'src/utils';
+import type { Pokemon } from 'src/types';
 
 import clsx from 'clsx';
 

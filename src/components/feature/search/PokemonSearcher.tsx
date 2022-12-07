@@ -1,11 +1,11 @@
 import type { FC } from 'react';
-import type { Pokemon } from 'src/utils';
+import type { Pokemon } from 'src/types';
 
 import clsx from 'clsx';
 import { useRef, useEffect, useState, useMemo } from 'react';
 import { TbKeyboard } from 'react-icons/tb';
 
-import { list } from 'src/data';
+import { list } from 'src/data/pokemons';
 
 import { PokemonTable } from './PokemonTable';
 

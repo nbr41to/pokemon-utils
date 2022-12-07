@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { Pokemon } from 'src/utils';
+import type { Pokemon } from 'src/types';
 
-import { getPokemons } from 'src/getPokemons';
+import { getPokemons } from '@/utils/getPokemons';
 
 export default async function handler(
   req: NextApiRequest,

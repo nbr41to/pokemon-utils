@@ -1,7 +1,8 @@
-import type { Pokemon } from './utils';
+import type { Pokemon } from 'src/types';
 
 import puppeteer from 'puppeteer';
 
+/* Node.js Runtime */
 export const getPokemons = async () => {
   try {
     const browser = await puppeteer.launch();

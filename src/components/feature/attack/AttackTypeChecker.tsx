@@ -1,15 +1,15 @@
 import type { FC } from 'react';
-import type { Elemental } from 'src/utils';
 
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { types } from 'src/utils';
+import { types } from 'src/data/compatibilities';
+import { attackCheckAtom } from 'src/store/atom';
 
-import { TypeLabel } from './TypeLabel';
-import { TypeSelect } from './TypeSelect';
+import { TypeLabel } from '../../TypeLabel';
+import { TypeSelect } from '../../TypeSelect';
 
 export const AttackTypeChecker: FC = () => {
-  const [select, setSelect] = useState<Elemental>();
+  const [select, setSelect] = useRecoilState(attackCheckAtom);
 
   return (
     <div className="relative">
@@ -65,14 +65,15 @@ export const AttackTypeChecker: FC = () => {
               </div>
             </p>
           </div>
-
-          <button
-            type="button"
-            className="absolute bottom-2 w-full rounded-md bg-gray-400 py-3 text-white shadow"
-            onClick={() => setSelect(undefined)}
-          >
-            戻る
-          </button>
+          <div className="absolute bottom-2 w-full px-4">
+            <button
+              type="button"
+              className="w-full rounded-md bg-gray-400 py-3 text-white shadow"
+              onClick={() => setSelect(undefined)}
+            >
+              戻る
+            </button>
+          </div>
         </div>
       )}
     </div>
