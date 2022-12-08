@@ -10,12 +10,19 @@ import {
   TbCalculator,
 } from 'react-icons/tb';
 
-export const Footer: FC = () => {
+export const MenuBar: FC = () => {
   const router = useRouter();
   const { pathname } = router;
 
   return (
-    <footer className="fixed bottom-0 flex h-16 w-full items-center justify-evenly bg-black text-white">
+    <nav
+      className={clsx(
+        'fixed bottom-0 left-1/2 -translate-x-1/2',
+        'sm:top-0',
+        'flex items-center justify-evenly',
+        'h-16 w-full max-w-[520px] bg-black text-white'
+      )}
+    >
       <button
         type="button"
         className={clsx('h-full px-5', pathname === '/attack' && 'bg-gray-600')}
@@ -60,6 +67,6 @@ export const Footer: FC = () => {
       >
         <TbCalculator size={24} />
       </button>
-    </footer>
+    </nav>
   );
 };

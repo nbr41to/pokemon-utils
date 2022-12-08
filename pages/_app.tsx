@@ -9,9 +9,11 @@ import { Layout } from '@/components/layout/Layout';
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <RecoilRoot>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <div className="min-h-screen bg-teal-100">
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </div>
     </RecoilRoot>
   );
 };

@@ -1,4 +1,4 @@
-import type { CalcOptions, Elemental } from 'src/types';
+import type { CalcDamageOptions, Elemental } from 'src/types';
 
 import { atom } from 'recoil';
 
@@ -20,7 +20,7 @@ export const searchAtom = atom({
   key: 'searchAtom',
   default: '',
 });
-export const calculateAtom = atom<CalcOptions>({
+export const calculateAtom = atom<CalcDamageOptions>({
   key: 'calculateAtom',
   default: {
     power: 10,
@@ -28,5 +28,8 @@ export const calculateAtom = atom<CalcOptions>({
     effortAttack: 252,
     baseDefense: 0,
     effortDefense: 252,
+    pcmAttack: 1,
+    pcmDefense: 1,
+    magnifications: [1],
   },
 });

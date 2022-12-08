@@ -1,9 +1,10 @@
 import type { FC } from 'react';
 import type { Pokemon } from 'src/types';
 
+import { Chip, TextInput } from '@mantine/core';
 import clsx from 'clsx';
 import { useRef, useEffect, useState, useMemo } from 'react';
-import { TbKeyboard } from 'react-icons/tb';
+import { TbKeyboard, TbPokeball } from 'react-icons/tb';
 
 import { list } from 'src/data/pokemons';
 
@@ -46,35 +47,28 @@ export const PokemonSearcher: FC = () => {
   return (
     <div className="min-h-[900px]">
       <div className="px-4">
-        <div>
-          <label
-            htmlFor="toggle-abilities"
-            className="flex cursor-pointer justify-end gap-2 py-2 text-xs font-bold"
+        <div className="flex justify-end">
+          <Chip
+            size="xs"
+            variant="filled"
+            color="teal"
+            defaultChecked
+            checked={visibleAbilities}
+            onChange={() => setVisibleAbilities(!visibleAbilities)}
           >
-            <input
-              id="toggle-abilities"
-              className="cursor-pointer"
-              checked={visibleAbilities}
-              onChange={() => setVisibleAbilities(!visibleAbilities)}
-              type="checkbox"
-            />
             能力を表示する
-          </label>
+          </Chip>
         </div>
 
-        <div>
-          <label htmlFor="name" className="flex flex-col">
-            <span className="text-xs font-bold">ポケモン名</span>
-            <input
-              id="name"
-              ref={inputRef}
-              type="text"
-              className="mt-1 rounded border px-3 py-2 text-lg font-bold"
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-            />
-          </label>
-        </div>
+        <TextInput
+          label="ポケモン名"
+          size="md"
+          icon={<TbPokeball size={24} />}
+          placeholder="バンギラス"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          ref={inputRef}
+        />
       </div>
 
       <div className="flex h-8 items-center justify-center">

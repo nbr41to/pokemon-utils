@@ -1,142 +1,112 @@
 import type { FC } from 'react';
+import type { CalcDamageOptions } from 'src/types';
 
-import { useRecoilState } from 'recoil';
+import { NumberInput, Chip, SegmentedControl } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
-import { getDamage } from '@/utils/calculate';
+import { getDamageRange } from '@/utils/calculate';
 
-import { calculateAtom } from 'src/store/atom';
+import { CalcStatusForm } from './CalcStatusForm';
 
 export const Calculator: FC = () => {
-  const [formState, setFormState] = useRecoilState(calculateAtom);
+  const form = useForm<CalcDamageOptions>({
+    initialValues: {
+      power: 10,
+      baseAttack: 0,
+      effortAttack: 252,
+      baseDefense: 0,
+      effortDefense: 252,
+      pcmAttack: 1,
+      pcmDefense: 1,
+      magnifications: [1],
+    },
+  });
 
   return (
     <div className="px-3">
       <h2 className="text-center">※ β版 ※ 制作中 ※</h2>
+      <p>※レベル50,個体値31で固定</p>
 
       <h3 className="font-bold">ダメージ計算</h3>
-      <div>{getDamage(formState)}</div>
+
+      <div>ダメージ：{getDamageRange(form.values).join('〜')}</div>
+
       <div className="space-y-2 py-2">
-        <div className="space-x-3">
-          <label htmlFor="power">
-            技威力
-            <input
-              id="power"
-              className="ml-2 w-20 rounded border px-3 py-2 font-bold"
-              type="tel"
-              value={formState.power}
-              onChange={(e) =>
-                setFormState((prev) => ({
-                  ...prev,
-                  power: Number(e.target.value),
-                }))
-              }
+        <div className="flex flex-wrap gap-4">
+          <NumberInput
+            className="w-40"
+            label="技威力"
+            {...form.getInputProps('power')}
+          />
+          <NumberInput
+            className="w-40"
+            label="攻撃種族値"
+            {...form.getInputProps('baseAttack')}
+          />
+          <div>
+            <div className="mb-1 text-sm">攻撃努力値</div>
+            <SegmentedControl
+              className="w-40"
+              defaultValue="252"
+              data={['252', '4', '0']}
+              {...form.getInputProps('effortAttack')}
             />
-          </label>
-          <label htmlFor="base-attack">
-            攻撃種族値
-            <input
-              id="base-attack"
-              className="ml-2 w-20 rounded border px-3 py-2 font-bold"
-              type="tel"
-              value={formState.baseAttack}
-              onChange={(e) =>
-                setFormState((prev) => ({
-                  ...prev,
-                  baseAttack: Number(e.target.value),
-                }))
-              }
+          </div>
+          <div>
+            <div className="mb-1 text-sm">攻撃性格補正</div>
+            <SegmentedControl
+              className="w-40"
+              defaultValue="1.0"
+              data={['0.9', '1.0', '1.1']}
+              {...form.getInputProps('pcmAttack')}
             />
-          </label>
+          </div>
         </div>
-        <div className="space-x-3">
-          <label htmlFor="a">
-            個体値
-            <input
-              id="a"
-              className="ml-2 w-20 rounded border px-3 py-2 font-bold"
-              type="tel"
-              value={31}
+        <hr />
+        <div className="flex flex-wrap gap-4">
+          <div className="flex w-40 items-center justify-center">受ける側</div>
+          <NumberInput
+            className="w-40"
+            label="防御種族値"
+            {...form.getInputProps('baseDefense')}
+          />
+          <div>
+            <div className="mb-1 text-sm">防御努力値</div>
+            <SegmentedControl
+              className="w-40"
+              defaultValue="252"
+              data={['252', '4', '0']}
+              {...form.getInputProps('effortDefense')}
             />
-          </label>
-          <label htmlFor="effort">
-            攻撃努力値
-            <select
-              name="effort"
-              id="effort"
-              className="ml-2 w-20 rounded border px-3 py-2 font-bold"
-              value={formState.effortAttack}
-              onChange={(e) =>
-                setFormState((prev) => ({
-                  ...prev,
-                  effortAttack: Number(e.target.value),
-                }))
-              }
-            >
-              <option value="252">252</option>
-              <option value="0">0</option>
-            </select>
-          </label>
+          </div>
+          <div>
+            <div className="mb-1 text-sm">防御性格補正</div>
+            <SegmentedControl
+              className="w-40"
+              defaultValue="1.0"
+              data={['0.9', '1.0', '1.1']}
+              {...form.getInputProps('pcmDefense')}
+            />
+          </div>
         </div>
-        <div className="space-x-3">
-          <label htmlFor="base-defense">
-            防御種族値
-            <input
-              id="base-defense"
-              className="ml-2 w-20 rounded border px-3 py-2 font-bold"
-              type="tel"
-              value={formState.baseDefense}
-              onChange={(e) =>
-                setFormState((prev) => ({
-                  ...prev,
-                  baseDefense: Number(e.target.value),
-                }))
-              }
-            />
-          </label>
-          <label htmlFor="effort">
-            防御努力値
-            <select
-              name="effort"
-              id="effort"
-              className="ml-2 w-20 rounded border px-3 py-2 font-bold"
-              value={formState.effortDefense}
-              onChange={(e) =>
-                setFormState((prev) => ({
-                  ...prev,
-                  effortDefense: Number(e.target.value),
-                }))
-              }
-            >
-              <option value="252">252</option>
-              <option value="0">0</option>
-            </select>
-          </label>
+      </div>
+      <hr />
+      <div>
+        <div className="mb-1 text-sm">タイプ相性</div>
+        <SegmentedControl
+          className="w-full"
+          defaultValue="1.0"
+          data={['0.25', '0,5', '1.0', '2.0', '4.0']}
+        />
+        <div className="flex gap-3">
+          <Chip {...form.getInputProps('aaaaaaa', { type: 'checkbox' })}>
+            こだわりハチマキ・メガネ
+          </Chip>
+          <Chip>いのちのたま</Chip>
         </div>
       </div>
 
-      <label
-        htmlFor="a"
-        className="flex cursor-pointer gap-2 py-2 text-sm font-bold"
-      >
-        <input id="" className="cursor-pointer" type="checkbox" />
-        性格補正
-      </label>
-      <label
-        htmlFor="a"
-        className="flex cursor-pointer gap-2 py-2 text-sm font-bold"
-      >
-        <input id="" className="cursor-pointer" type="checkbox" />
-        こだわりハチマキ・メガネ
-      </label>
-      <label
-        htmlFor="a"
-        className="flex cursor-pointer gap-2 py-2 text-sm font-bold"
-      >
-        <input id="" className="cursor-pointer" type="checkbox" />
-        いのちのたま
-      </label>
-
-      <h3 className="font-bold">ステータス計算</h3>
+      <CalcStatusForm />
     </div>
   );
 };

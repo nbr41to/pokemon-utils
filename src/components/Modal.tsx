@@ -8,7 +8,7 @@ type Props = {
 export const Modal: FC<Props> = ({ children, close }) => {
   return (
     <div className="">
-      <div className="fixed top-1/2 left-0 z-50 mx-8 min-h-[200px] -translate-y-2/3 rounded-xl bg-white py-4 px-6">
+      <div className="fixed top-1/2 left-1/2 z-50 min-h-[200px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white py-4 px-6">
         {children}
       </div>
       {/* Overlay */}
